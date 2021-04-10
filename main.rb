@@ -16,24 +16,26 @@ end
 doc = Nokogiri::HTML.parse(html, nil, charset)
 
 # タイトルを表示
-p doc.class
+p doc.title
 
 #p doc.css('span.icon_giant').inner_text
 #p doc.css('span.icon_giant').css('a')[:href]
 
+"""
 umamusumes = doc.search('.icon_giant').map{ |node| node.inner_text.strip}
 p umamusumes.length
 
 urls = doc.search('.icon_giant').css('a').map{ |node| node[:href]}
 p urls.length
+"""
 
-"""
-results = []
-doc.search('.icon_gialt').each_with_index do |node, i|
-    name = node.inner_text
-    url = node.css(a)[:href]
-    p name
-    p url
-    results << [name, url]
+umamusumes = []
+urls = []
+for i in 2..6 do
+  umamusumes += doc.search("/html/body/div[2]/div[2]/div[1]/main/kamigame-article-body/article/table[#{i}]/tbody/tr/td[1]/span").map{ |node| node.inner_text.strip}
+  urls += doc.search("/html/body/div[2]/div[2]/div[1]/main/kamigame-article-body/article/table[#{i}]/tbody/tr/td[1]/span/a").map{ |node| node[:href]}
 end
-"""
+
+p umamusumes
+p urls
+
