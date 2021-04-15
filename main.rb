@@ -25,5 +25,8 @@ end
 
 
 p doc2.title
+all_elements = doc2.xpath("//*")
 
-pp doc2.search("#オグリキャップのイベント選択肢と結果--託された想い").inner_text.strip
+events = all_elements.select{|v| v[:id] =~ /のイベント選択肢と結果--/}.map{|v| v[:id]}
+
+pp events
